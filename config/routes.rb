@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :agents, only: [:index, :show, :create, :destroy]
   resources :properties, only: [:create, :index, :show]
   resources :clients, only: [:show, :create]
+  resources :users, only: [:index, :show, :create]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
@@ -13,4 +14,7 @@ Rails.application.routes.draw do
   get '*path',
     to: 'fallback#index',
     constraints: ->(req) { !req.xhr? && req.format.html? }
+
+  post '/login', to: 'sessions#login'
+  post '/signup', to: 'sessions#signup'
 end

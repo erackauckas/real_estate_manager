@@ -19,11 +19,11 @@ function SellHouse() {
     }
 
     function handleSubmit(event) {
-        fetch("http://localhost:3000/properties", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
+            event.preventDefault()
+            fetch("http://localhost:4000/properties", {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+            
             body: JSON.stringify({
                 name: formData.name,
                 address: formData.address,
@@ -34,7 +34,7 @@ function SellHouse() {
                 description: formData.description,
             }),
         });
-    }
+        }
 return (
     <div className="sell-house">
         <h2>Sell House</h2>

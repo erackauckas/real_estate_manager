@@ -4,6 +4,10 @@ import Navbar from "./Components/Navbar";
 import Search from "./Components/Search";
 import SellHouse from "./Components/SellHouse";
 import HouseGrid from "./Components/HouseGrid";
+import Login from "./Components/Login";
+import Auth from "./Components/Auth";
+
+
 
 function App() {
   const [houses, setHouses] = useState([])
@@ -46,7 +50,8 @@ function App() {
         <Route exact path={"/"} element={<HouseGrid handleHouseSearch={handleHouseSearch} houses={filteredHouses} Search={Search}/>} />
           <Route exact path={"/HouseGrid"} element={<HouseGrid handleHouseSearch={handleHouseSearch} houses={filteredHouses} Search={Search}/>} />
           <Route exact path={"/SellHouse"} element={<SellHouse handleHouseSearch={handleHouseSearch} houses={filteredHouses} Search={Search}/>} />
-          <Route exact path={"/Login"}/>
+          <Route exact path={"/Signup"} element={<Auth/>} />          
+          <Route exact path={"/Login"} element={<Login/>} />
           <Route exact path={"/HouseGrid/:id"} element={<HouseGrid handleHouseSearch={handleHouseSearch} houses={filteredHouses} Search={Search}/>} >
           </Route>    
         </Routes>

@@ -16,6 +16,9 @@ function Navbar() {
                 <li className="navigation" >
                     <Link className="navigation" to= "/Login">Login</Link>
                 </li>   
+                <li className="navigation" >
+                    <Link className="navigation" to= "/Signup">Sign Up</Link>
+                </li>   
             </ul>            
         </nav>
     )

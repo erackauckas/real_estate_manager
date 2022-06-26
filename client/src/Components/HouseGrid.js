@@ -1,6 +1,5 @@
-import { useState, useEffect} from 'react';
 import HouseCard from "./HouseCard.js";
-import {useParams, Link} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import NoMatch from './NoMatch.js';
 
 function HouseGrid({houses}) {
@@ -51,7 +50,7 @@ function HouseGrid({houses}) {
 
     <div>
         <h1> {singleHouse.address}</h1>            
-            <img src={singleHouse.image}></img>
+            <img src={singleHouse.image} alt={singleHouse.name}></img>
             <h2> {singleHouse.price} {singleHouse.rooms} {singleHouse.sq_ft}</h2>
     </div>
 

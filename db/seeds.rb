@@ -33,6 +33,9 @@ puts "Seeding AgentProperties..."
     property_id: Property.all.sample.id)
 }
 
+u1 = User.create(name: 'Eric', admin: true, password: "password")
+u2 = User.create(name: 'Justin', admin: true, password: "password")
+
 puts "Seeding complete!"
 
 # This file should contain all the record creation needed to seed the database with its default values.
