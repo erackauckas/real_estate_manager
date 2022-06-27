@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-function Auth() {
+function Auth({setUser, setIsAuthenticated}) {
     const [username, setUsername] = useState('')   
     const [password, setPassword] = useState('')
    
@@ -18,31 +18,38 @@ function Auth() {
           headers:{'Content-Type': 'application/json'},
           body:JSON.stringify(user)
         })
-        .then(res => res.json())
-        .then(json => {
-            console.log(json)
-            if(json.errors) setErrors(Object.entries(json.errors))
+        .then(res => {
+          if(res.ok){
+            res.json()
+            .then(user=>{
+              setUser(user)
+              setIsAuthenticated(true)
+            })
+          } else {
+            res.json()
+            .then(json => setErrors(json.errors))
+          }
         })
     }
+
     return (
-        <> 
-        <form onSubmit={onSubmit}>
-        <label>
-          Username
-   
-          <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
-        </label>        
-        <label>
-         Password
-    
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-        </label>
-       
-        <input type="submit" value="Sign up!" />
-      </form>
-      {errors ? errors.map(e => <div>{e[0] + " " + e[1]}</div>) : null }
-        </>
-    )
+      <>
+      <h1>Sign Up</h1>
+      <form onSubmit={onSubmit}>
+      <label>
+        Username
+        <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+      </label>
+
+      <label>
+       Password
+      <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+      </label>
+      <input type="submit" value="Sign up!" />
+    </form>
+    { Object.keys(errors) ? Object.keys(errors).map((key, index) => <div>{key+': ' + Object.values(errors)[index]}</div>) : null }
+    </>
+  )
 }
 
 export default Auth;

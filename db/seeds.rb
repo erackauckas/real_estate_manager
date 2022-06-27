@@ -24,7 +24,8 @@ puts "Seeding Properties..."
     rooms: rand(1..5).to_s + " Bed, " + rand(1..5).to_s + " Bath",
     sq_ft: rand(1..10) * 500,
     price: rand(5..30) * 25000,
-    image: "/img/Home.jpg"
+    image: "/img/House" + rand(1..8).to_s + ".jpg",
+    description: Faker::Quotes::Shakespeare.romeo_and_juliet_quote
 )}
 
 puts "Seeding AgentProperties..."

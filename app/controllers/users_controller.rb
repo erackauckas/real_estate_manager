@@ -1,37 +1,39 @@
 class UsersController < ApplicationController
+    skip_before_action :is_authorized?, except: [:create], raise: false
+    before_action :is_admin?, only: [:update, :destroy]
 
-     # GET "/users"
+     
      def index 
         render json: User.all
     end 
 
-    # GET "/users/:id"
-    def show
-        user = User.find(params[:id])
+  
+    def show        
+        user = User.find_by(id: session[:current_user])
             if user
-                render json: user, status: :ok
+                render json: current_user, status: :ok
             else
                 render json: "No current session stored", status: :unauthorized
             end
     end
     
-    # POST "/users"
+    
     def create
-        # byebug
+       
 
         user = User.create!(user_params)
         session[:current_user] = user.id
         render json: user, status: :created
     end
 
-    # PUT "/users/:id"
+    
     def update
         user = User.find(params[:id])
         user.update!(user_params)
         render json: user, status: :created
     end
 
-    # DELETE "/users/:id"
+    
     def destroy
         user = User.find(params[:id])
         user.destroy

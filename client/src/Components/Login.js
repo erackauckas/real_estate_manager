@@ -1,9 +1,11 @@
 import React, {useState} from 'react'
 
-function Login() {
+
+
+function Login({setIsAuthenticated, setUser, setIsAdmin}) {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const [errors, setErrors] = useState([])
+    const [error, setError] = useState([])
 
     function onSubmit(e){
         e.preventDefault()
@@ -17,10 +19,18 @@ function Login() {
           headers:{'Content-Type': 'application/json'},
           body:JSON.stringify(user)
         })
-        .then(res => res.json())
-        .then(json => {
-            console.log(json)
-            if(json.errors) setErrors(json.errors)
+        .then(res => {
+          if(res.ok){
+            res.json()
+            .then(user=>{
+              setUser(user)
+              setIsAuthenticated(true)
+              setIsAdmin(user.admin)
+            })
+          } else {
+            res.json()
+            .then(json => setError(json.error))
+          }
         })
     }
     return (
@@ -39,7 +49,7 @@ function Login() {
        
         <input type="submit" value="Login!" />
       </form>
-      {errors?errors.map(e => <div>{e}</div>):null}
+      {error?<div>{error}</div>:null}
         </>
     )
 }

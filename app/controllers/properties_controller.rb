@@ -12,6 +12,18 @@ def show
     render json: Property.find(params[:id])
 end
 
+def update
+    property = Property.find(params[:id])
+    property.update!(params.permit(:price))
+    render json: Property.find(params[:id]), status: :created
+end
+
+def destroy
+    property = Property.find(params[:id])
+    property.destroy
+    head :no_content
+end
+
 private
 
 def property_params
